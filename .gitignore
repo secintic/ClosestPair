@@ -1,0 +1,7 @@
+*.csv
+build
+.idea
+.gradle
+*.iml
+*.xml
+*.tsv
