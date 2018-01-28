@@ -1,12 +1,11 @@
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class ClosestPair {
     private Point best1, best2;
     private double bestDistance = Double.POSITIVE_INFINITY;
 
-    private ClosestPair(Point[] points) {
+    private ClosestPair(Point[] points) throws FileNotFoundException, UnsupportedEncodingException {
         int n = points.length;
         if (n <= 1) return;
 
@@ -56,11 +55,11 @@ public class ClosestPair {
         this.best2 = best2;
     }
 
-    private Point either() {
+    private Point first() {
         return best1;
     }
 
-    private Point other() {
+    private Point second() {
         return best2;
     }
 
@@ -88,7 +87,9 @@ public class ClosestPair {
 
         Point[] points = pointArray.toArray(new Point[pointArray.size()]);
         ClosestPair closest = new ClosestPair(points);
-        System.out.println("from " + closest.either() + " to " + closest.other());
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("output.txt"), "utf-8"))) {
+            writer.write(closest.first().toString() + System.getProperty("line.separator") + closest.second().toString());
+        }
     }
-
 }

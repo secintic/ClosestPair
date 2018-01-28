@@ -19,4 +19,8 @@ class Point {
         return Double.compare((Math.pow(this.getYAxis(), 2) + Math.pow(this.getXAxis(), 2)), Math.pow(p.getYAxis(), 2) + Math.pow(p.getXAxis(), 2));
     }
 
+    @Override
+    public String toString() {
+        return index + ":" + xAxis + "\t" + yAxis;
+    }
 }
