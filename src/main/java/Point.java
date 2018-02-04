@@ -2,25 +2,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.stream.IntStream;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 class Point {
     private int index;
-    private Double xAxis;
-    private Double yAxis;
+    private double[] axes;
 
 
-    double distanceTo(Point aux) {
-        return Math.pow(this.getYAxis() - aux.getYAxis(), 2) + Math.pow(this.getXAxis() - aux.getXAxis(), 2);
-    }
-
-    public int compareTo(Point p) {
-        return Double.compare((Math.pow(this.getYAxis(), 2) + Math.pow(this.getXAxis(), 2)), Math.pow(p.getYAxis(), 2) + Math.pow(p.getXAxis(), 2));
+    double distanceTo(Point p) {
+        double totalDistanceSquare = IntStream.range(0, axes.length)
+                .mapToDouble(i -> this.axes[i] - p.axes[i])
+                .map(dif -> dif * dif)
+                .reduce(0, Double::sum);
+        return Math.sqrt(totalDistanceSquare);
     }
 
     @Override
     public String toString() {
-        return index + ":" + xAxis + "\t" + yAxis;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(index).append(":");
+        for (double axis : axes)
+            stringBuilder.append(axis).append('\t');
+        return stringBuilder.toString();
     }
 }
