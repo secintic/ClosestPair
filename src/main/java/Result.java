@@ -1,6 +1,5 @@
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -10,7 +9,7 @@ public class Result {
     private double delta;
 
     Result(Point p1, Point p2) {
-        this(p1, p2, p1.distanceTo(p2));
+        this(p1.getIndex() < p2.getIndex() ? p1 : p2, p1.getIndex() < p2.getIndex() ? p2 : p1, p1.distanceTo(p2));
     }
 
     Result() {
