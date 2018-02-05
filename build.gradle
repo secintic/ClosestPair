@@ -9,7 +9,7 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-mainClassName = "Application"
+mainClassName = "com.interview.Application"
 dependencies {
     testCompile 'junit:junit:4.12'
     compileOnly "org.projectlombok:lombok:1.16.16"

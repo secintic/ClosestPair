@@ -1,3 +1,5 @@
+package com.interview;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
