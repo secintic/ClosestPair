@@ -31,30 +31,42 @@ public class ClosestPair {
             case 1:
                 return new Result(new Point(), new Point(), Double.MAX_VALUE);
             case 2:
-                return new Result(points.get(0), points.get(1)) {
-                };
+                return new Result(points.get(0), points.get(1));
             default:
-                int median = length / 2;
-                List<Point> lower = points.subList(0, median);
-                List<Point> upper = points.subList(median + 1, length);
-                Result resultLeft = getMinDistPair(lower);
-                Result resultRight = getMinDistPair(upper);
-                if (resultLeft.getDelta() < resultRight.getDelta())
-                    tempResult = resultLeft;
-                else
-                    tempResult = resultRight;
-                List<Point> medianCloserPointList = new ArrayList<>();
-                for (Point point : points) {
-                    if (point.distanceTo(points.get(median)) < tempResult.getDelta())
-                        medianCloserPointList.add(point);
-                }
-                for (int i = 0; i < medianCloserPointList.size(); i++) {
-                    for (int j = i + 1; j < medianCloserPointList.size(); j++) {
-                        if (medianCloserPointList.get(i).distanceTo(medianCloserPointList.get(j)) < tempResult.getDelta())
-                            tempResult = new Result(medianCloserPointList.get(i), medianCloserPointList.get(j));
-                    }
-                }
+                tempResult = divideAlgorithm(points, length, length / 2);
+                tempResult = checkMedianCloserPoints(points, tempResult, length / 2);
                 return tempResult;
         }
+    }
+
+    private Result checkMedianCloserPoints(List<Point> points, Result tempResult, int median) {
+        List<Point> medianCloserPointList = createMedianCloserPointsList(points, tempResult, median);
+        for (int i = 0; i < medianCloserPointList.size(); i++) {
+            for (int j = i + 1; j < medianCloserPointList.size(); j++) {
+                if (medianCloserPointList.get(i).distanceTo(medianCloserPointList.get(j)) < tempResult.getDelta())
+                    tempResult = new Result(medianCloserPointList.get(i), medianCloserPointList.get(j));
+            }
+        }
+        return tempResult;
+    }
+
+    private List<Point> createMedianCloserPointsList(List<Point> points, Result tempResult, int median) {
+        List<Point> medianCloserPointList = new ArrayList<>();
+        for (Point point : points) {
+            if (point.distanceTo(points.get(median)) < tempResult.getDelta())
+                medianCloserPointList.add(point);
+        }
+        return medianCloserPointList;
+    }
+
+    private Result divideAlgorithm(List<Point> points, int length, int median) {
+        List<Point> lower = points.subList(0, median);
+        List<Point> upper = points.subList(median + 1, length);
+        Result resultLeft = getMinDistPair(lower);
+        Result resultRight = getMinDistPair(upper);
+        if (resultLeft.getDelta() < resultRight.getDelta())
+            return resultLeft;
+        else
+            return resultRight;
     }
 }
