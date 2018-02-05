@@ -8,7 +8,7 @@ public class ClosestPair {
     private int numberOfDimensions;
     private Result result;
 
-    ClosestPair(ArrayList<Point> points) {
+    ClosestPair(List<Point> points) {
         this.points = points;
         this.numberOfDimensions = points.get(0).getAxes().length;
         this.result = new Result();
