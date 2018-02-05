@@ -3,7 +3,7 @@
 Algorithm running time: O(n(logn)^m-1) ; m is the number of dimension. It is assumed as constant.
 
 Limitations: 
-1. Filename should be written in to main class.
+1. Filename should be written to main class.
 2. Only reads from '.tsv files'.
 
 Algorithm --> Divide and Conquer:
