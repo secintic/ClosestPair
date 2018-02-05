@@ -3,7 +3,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Result {
 
@@ -12,6 +11,10 @@ public class Result {
 
     Result(Point p1, Point p2) {
         this(p1, p2, p1.distanceTo(p2));
+    }
+
+    Result() {
+        this.delta = Double.MAX_VALUE;
     }
 
     @Override
